@@ -20,12 +20,12 @@ export default {
   methods: {
     logout: function() {
       Firebase.auth()
-      .signOut()
-      .then(() => {
-        this.user = null
-        this.$router.push('login')
-      })
-    }
+        .signOut()
+        .then(() => {
+          this.user = null
+          this.$router.push('login')
+        })
+    },
   },
   mounted() {
     db // call the db
