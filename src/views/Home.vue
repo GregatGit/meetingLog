@@ -1,7 +1,9 @@
 <template>
   <div class="mt-3">
     <div class="text-secondary text-center">
-      Welcome Back <span class="font-weight-bold">{{ user }}</span>
+      <div class="text-center" v-if="user">
+        Welcome Back <span class="font-weight-bold text-info">{{ user }}</span>, <a href="#" role="button" class="text-primary" @click="$emit('logout')">logout</a>
+      </div>
     </div>
     <div class="container text-center">
       <div class="row justify-content-center">
