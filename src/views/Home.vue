@@ -1,8 +1,10 @@
 <template>
-  <div class="container text-center">
+  <div class="mt-3">
+    <div class="text-secondary text-center">Welcome Back <span class="font-weight-bold">{{user}}</span></div>
+    <div class="container text-center">
     <div class="row justify-content-center">
       <div class="col-10 col-md-10 col-lg-8 col-xl-7">
-        <h4 class="display-4 text-primary mt-3 mb-2">Meeting Log</h4>
+        <h4 class="display-4 text-primary mb-2">Meeting Log</h4>
         <p class="lead">
           This simple app creates meetings, allows people to check in, and
           picks random users to award giveaways. It's a good example of a
@@ -22,14 +24,29 @@
       </div>
     </div>
   </div>
+  </div>
 </template>
 
 <script>
 // @ is an alias to /src
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import db from '../db.js'
 export default {
   name: 'home',
+  data: function () {
+    return {
+      user: null
+    }
+  },
+  mounted() {
+    db.collection('users')
+      .doc('ZFxZB0JF6iuglSM72uIy')
+      .get()
+      .then(snapshot => {
+        this.user = snapshot.data().name
+      })
+  },
   components: {
     FontAwesomeIcon,
   },
