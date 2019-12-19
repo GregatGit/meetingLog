@@ -7,7 +7,7 @@
 
 <script>
 import Navigation from '@/components/Navigation.vue'
-//import Firebase from 'firebase'
+import Firebase from 'firebase'
 import db from './db'
 
 export default {
@@ -18,12 +18,18 @@ export default {
     }
   },
   mounted() {
-    db.collection('users')
-      .doc('ZFxZB0JF6iuglSM72uIy')
-      .get()
-      .then(snapshot => {
-        this.user = snapshot.data().name
-      })
+    db // call the db 
+    Firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.user = user.email
+      }
+    })
+    // db.collection('users')
+    //   .doc('ZFxZB0JF6iuglSM72uIy')
+    //   .get()
+    //   .then(snapshot => {
+    //     this.user = snapshot.data().name
+    //   })
   },
   components: {
     Navigation
