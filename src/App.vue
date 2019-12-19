@@ -21,7 +21,9 @@ export default {
     db // call the db
     Firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        this.user = user.email
+        //eslint-disable-next-line no-console
+        console.log(user)
+        this.user = user.displayName
       }
     })
     // db.collection('users')

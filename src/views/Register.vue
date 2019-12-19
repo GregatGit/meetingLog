@@ -8,13 +8,9 @@
               <div class="card-body">
                 <h3 class="font-weight-light mb-3">Register</h3>
                 <div class="form-row">
-                  <div v-if="error" class="col-12 alert alert-danger px-3">
-                    {{ error }}
-                  </div>
+                  <div v-if="error" class="col-12 alert alert-danger px-3">{{ error }}</div>
                   <section class="col-sm-12 form-group">
-                    <label class="form-control-label sr-only" for="displayName"
-                      >Display Name</label
-                    >
+                    <label class="form-control-label sr-only" for="displayName">Display Name</label>
                     <input
                       class="form-control"
                       type="text"
@@ -27,9 +23,7 @@
                   </section>
                 </div>
                 <section class="form-group">
-                  <label class="form-control-label sr-only" for="email"
-                    >Email</label
-                  >
+                  <label class="form-control-label sr-only" for="email">Email</label>
                   <input
                     class="form-control"
                     type="email"
@@ -60,9 +54,7 @@
                   </section>
                 </div>
                 <div class="form-group text-right mb-0">
-                  <button class="btn btn-primary" type="submit">
-                    Register
-                  </button>
+                  <button class="btn btn-primary" type="submit">Register</button>
                 </div>
               </div>
             </div>
@@ -81,6 +73,7 @@
 import Firebase from 'firebase'
 
 export default {
+  name: 'register',
   data: function() {
     return {
       displayName: null,
@@ -99,8 +92,14 @@ export default {
       if (!this.error) {
         Firebase.auth()
           .createUserWithEmailAndPassword(info.email, info.password)
-          .then(() => {
-            this.$router.replace('meetings')
+          .then(userDetails => {
+            return userDetails.user
+              .updateProfile({
+                displayName: info.displayName,
+              })
+              .then(() => {
+                this.$router.replace('meetings')
+              })
           }),
           error => {
             this.error = error.message
