@@ -14,11 +14,11 @@ export default {
   name: 'app',
   data: function() {
     return {
-      user: null
+      user: null,
     }
   },
   mounted() {
-    db // call the db 
+    db // call the db
     Firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.user = user.email
@@ -32,13 +32,12 @@ export default {
     //   })
   },
   components: {
-    Navigation
-  }
+    Navigation,
+  },
 }
 </script>
 
 <style lang="scss">
-  $primary: #05b2dd;
-  @import "node_modules/bootstrap/scss/bootstrap"
+$primary: #05b2dd;
+@import 'node_modules/bootstrap/scss/bootstrap';
 </style>
-
