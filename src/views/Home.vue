@@ -31,22 +31,10 @@
 // @ is an alias to /src
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import db from '../db.js'
+
 export default {
   name: 'home',
-  data: function () {
-    return {
-      user: null
-    }
-  },
-  mounted() {
-    db.collection('users')
-      .doc('ZFxZB0JF6iuglSM72uIy')
-      .get()
-      .then(snapshot => {
-        this.user = snapshot.data().name
-      })
-  },
+  props: ['user'],
   components: {
     FontAwesomeIcon,
   },
