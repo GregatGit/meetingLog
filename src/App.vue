@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Navigation :user="user" @logout="logout" />
-    <router-view class="container" :user="user" @logout="logout" @addMeeting="addMeeting" />
+    <router-view class="container" :user="user" @logout="logout" @addMeeting="addMeeting" :meetings="meetings" />
   </div>
 </template>
 
@@ -47,11 +47,15 @@ export default {
           .doc(this.user.uid)
           .collection('meetings')
           .onSnapshot(snapshot => {
+            const snapMeetings = []
             snapshot.forEach(doc => {
-              this.meetings.push({
+              snapMeetings.push({
                 id: doc.id,
                 name: doc.data().name,
               })
+            })
+            this.meetings = snapMeetings.sort((a, b) => {
+              return a.name.toLowerCase() > b.name.toLowerCase()
             })
           })
       }
