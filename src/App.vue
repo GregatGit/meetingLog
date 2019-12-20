@@ -15,6 +15,7 @@ export default {
   data: function() {
     return {
       user: null,
+      meetings: [],
     }
   },
   methods: {
@@ -32,25 +33,29 @@ export default {
         .collection('meetings')
         .add({
           name: payload,
-          createdAt: Firebase.firestore.FieldValue.serverTimestamp()
+          createdAt: Firebase.firestore.FieldValue.serverTimestamp(),
         })
-    }
+    },
   },
   mounted() {
     db // call the db
     Firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        //eslint-disable-next-line no-console
-        console.log(user)
         this.user = user
+
+        db.collection('users')
+          .doc(this.user.uid)
+          .collection('meetings')
+          .onSnapshot(snapshot => {
+            snapshot.forEach(doc => {
+              this.meetings.push({
+                id: doc.id,
+                name: doc.data().name,
+              })
+            })
+          })
       }
     })
-    // db.collection('users')
-    //   .doc('ZFxZB0JF6iuglSM72uIy')
-    //   .get()
-    //   .then(snapshot => {
-    //     this.user = snapshot.data().name
-    //   })
   },
   components: {
     Navigation,
