@@ -2,7 +2,7 @@
   <div class="mt-3">
     <div class="text-secondary text-center">
       <div class="text-center" v-if="user">
-        Welcome Back <span class="font-weight-bold text-info">{{ user }}</span>, <a href="#" role="button" class="text-primary" @click="$emit('logout')">logout</a>
+        Welcome Back <span class="font-weight-bold text-info">{{ user.displayName }}</span>, <a href="#" role="button" class="text-primary" @click="$emit('logout')">logout</a>
       </div>
     </div>
     <div class="container text-center">

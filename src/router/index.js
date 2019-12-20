@@ -19,8 +19,8 @@ const routes = [
     component: Login,
   },
   {
-    path: '/meeting',
-    name: 'meeting',
+    path: '/meetings',
+    name: 'meetings',
     component: Meeting,
   },
   {

@@ -5,7 +5,7 @@
         <router-link class="navbar-brand" to="/">Meeting Log</router-link>
         <div class="navbar-nav ml-auto">
           <router-link class="nav-item nav-link" to="/meetings" v-if="user"
-            >meeting</router-link
+            >meetings</router-link
           >
           <router-link class="nav-item nav-link" to="/login" v-if="!user">login</router-link>
           <router-link class="nav-item nav-link" to="/register" v-if="!user"

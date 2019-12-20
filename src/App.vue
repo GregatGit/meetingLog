@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Navigation :user="user" @logout="logout" />
-    <router-view class="container" :user="user" @logout="logout" />
+    <router-view class="container" :user="user" @logout="logout" @addMeeting="addMeeting" />
   </div>
 </template>
 
@@ -26,6 +26,15 @@ export default {
           this.$router.push('login')
         })
     },
+    addMeeting: function(payload) {
+      db.collection('users')
+        .doc(this.user.uid)
+        .collection('meetings')
+        .add({
+          name: payload,
+          createdAt: Firebase.firestore.FieldValue.serverTimestamp()
+        })
+    }
   },
   mounted() {
     db // call the db
@@ -33,7 +42,7 @@ export default {
       if (user) {
         //eslint-disable-next-line no-console
         console.log(user)
-        this.user = user.displayName
+        this.user = user
       }
     })
     // db.collection('users')
